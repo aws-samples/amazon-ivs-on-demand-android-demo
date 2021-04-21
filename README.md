@@ -1,9 +1,8 @@
 # Amazon IVS On-demand Android demo
 
-This code sample shows how you can leverage [Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery) to enable on-demand Amazon IVS Player SDK, that is 
-downloaded from the Google Play Store when requested.
+This code sample shows how you can leverage [Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery) to enable on-demand delivery of the Amazon IVS Player SDK, which will be downloaded from the Google Play Store when requested.
 
-This is achieved by releasing your Android app with [.aar](https://developer.android.com/guide/app-bundle) bundles. (Note: this cannot be done with an `.apk`)
+This is achieved by releasing your Android application with [.aar](https://developer.android.com/guide/app-bundle) bundles. (Note: this cannot be done with an `.apk`)
 
 
 ## Setup Instructions
@@ -29,7 +28,7 @@ Override the `attachBaseContext(..)` function of the application and call `Split
 If you wish to use the feature module after it's downloaded you must call `SplitCompat.installActivity(this)` in every activity that needs access to it. If you plan to use the module in an fragment, you must install it in the parent activity of the fragment.
 
 #### Step 4: Add the play core and navigation feature-delivery dependency
-Add these:
+Add the following:
 ```
 api "androidx.navigation:navigation-dynamic-features-fragment:2.3.5"
 implementation "com.google.android.play:core:1.10.0"
