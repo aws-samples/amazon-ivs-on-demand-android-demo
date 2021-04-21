@@ -61,6 +61,12 @@ To test how the feature delivery works either upload your app to the Google Play
 
 ---
 
+## End result
+
+https://user-images.githubusercontent.com/68247764/115613371-29d21400-a2a1-11eb-9d8b-197d14b3baad.mp4
+
+---
+
 ## Amazon IVS Documentation
 * [Amazon IVS Amazon Interactive Video Service](https://aws.amazon.com/ivs/) is a managed live streaming solution that is quick and easy to set up, and ideal for creating interactive video experiences. Simply send your live streams to Amazon IVS and the service does everything you need to make ultra-low latency live video available to any viewer around the world, letting you focus on building interactive experiences alongside the live video. [Learn more](https://aws.amazon.com/ivs/).
 * [Amazon IVS Player SDK for Android](https://docs.aws.amazon.com/ivs/latest/userguide/player-android.html)
