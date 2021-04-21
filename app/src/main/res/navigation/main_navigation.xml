@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/main_fragment"
+    app:progressDestination="@id/loading_fragment">
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.amazonaws.ivs.moduleondemand.ui.fragments.MainFragment"
+        android:label="" />
+
+    <fragment
+        android:id="@+id/player_fragment"
+        android:name="com.amazonaws.ivs.playerdemo.ui.PlayerFragment"
+        app:moduleName="playerdemo"
+        android:label="" />
+
+    <fragment
+        android:id="@+id/loading_fragment"
+        android:name="com.amazonaws.ivs.moduleondemand.ui.fragments.LoadingFragment"
+        android:label="" />
+
+</navigation>
