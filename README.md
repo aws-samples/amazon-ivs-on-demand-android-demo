@@ -2,6 +2,8 @@
 
 This code sample shows how you can leverage [Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery) to enable on-demand delivery of the Amazon IVS Player SDK, which will be downloaded from the Google Play Store when requested.
 
+A modularized app will create clearly defined boundaries between separate parts of your application, and allowing you to decrease your app’s size further. In practice, this means that you can call an API to install the module (the Amazon IVS Player SDK) _after_ the app has been downloaded and installed on your user’s device. Using on-demand installation saves initial download time and size.
+
 This is achieved by releasing your Android application with [.aar](https://developer.android.com/guide/app-bundle) bundles. (Note: this cannot be done with an `.apk`)
 
 
