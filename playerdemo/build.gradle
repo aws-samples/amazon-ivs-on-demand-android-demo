@@ -42,5 +42,5 @@ dependencies {
     implementation project(":app")
 
     // Amazon IVS
-    implementation 'com.amazonaws:ivs-player:1.7.0'
+    implementation 'com.amazonaws:ivs-player:1.8.0'
 }
