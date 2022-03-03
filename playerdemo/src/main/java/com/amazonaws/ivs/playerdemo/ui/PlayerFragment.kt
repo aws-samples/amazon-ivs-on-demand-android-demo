@@ -9,10 +9,12 @@ import com.amazonaws.ivs.moduleondemand.App
 import com.amazonaws.ivs.moduleondemand.common.setVisible
 import com.amazonaws.ivs.moduleondemand.common.showSnackBar
 import com.amazonaws.ivs.playerdemo.BuildConfig
+import com.amazonaws.ivs.playerdemo.common.launchUI
 import com.amazonaws.ivs.playerdemo.common.lazyViewModel
 import com.amazonaws.ivs.playerdemo.common.zoomToFit
 import com.amazonaws.ivs.playerdemo.databinding.FragmentPlayerBinding
 import com.amazonaws.ivs.playerdemo.ui.viewmodels.PlayerViewModel
+import kotlinx.coroutines.flow.collect
 
 class PlayerFragment : Fragment() {
 
@@ -30,18 +32,24 @@ class PlayerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.onLoading.observeConsumable(viewLifecycleOwner) { loading ->
-            binding.playerLoading.setVisible(loading)
-        }
-
-        viewModel.onSizeChanged.observeConsumable(viewLifecycleOwner) { size ->
-            activity?.windowManager?.let { windowManager ->
-                binding.playerSurface.zoomToFit(windowManager, size.first, size.second)
+        launchUI {
+            viewModel.onLoading.collect { loading ->
+                binding.playerLoading.setVisible(loading)
             }
         }
 
-        viewModel.onError.observeConsumable(viewLifecycleOwner) { error ->
-            binding.root.showSnackBar(error)
+        launchUI {
+            viewModel.onSizeChanged.collect { size ->
+                activity?.windowManager?.let { windowManager ->
+                    binding.playerSurface.zoomToFit(windowManager, size.first, size.second)
+                }
+            }
+        }
+
+        launchUI {
+            viewModel.onError.collect { error ->
+                binding.root.showSnackBar(error)
+            }
         }
 
         viewModel.playMedia(requireContext(), binding.playerSurface.holder.surface, BuildConfig.DEMO_VIDEO)
