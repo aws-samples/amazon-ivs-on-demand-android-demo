@@ -14,7 +14,6 @@ import com.amazonaws.ivs.playerdemo.common.lazyViewModel
 import com.amazonaws.ivs.playerdemo.common.zoomToFit
 import com.amazonaws.ivs.playerdemo.databinding.FragmentPlayerBinding
 import com.amazonaws.ivs.playerdemo.ui.viewmodels.PlayerViewModel
-import kotlinx.coroutines.flow.collect
 
 class PlayerFragment : Fragment() {
 
