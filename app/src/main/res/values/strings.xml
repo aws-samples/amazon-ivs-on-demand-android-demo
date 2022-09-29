@@ -3,6 +3,5 @@
     <string name="title_playerdemo">IVS Player Demo</string>
     <string name="loading_module">Loading module…</string>
     <string name="load_player_demo">Load Player Demo</string>
-    <string name="retry">Retry</string>
     <string name="err_something_went_wrong">Something went wrong, please try again.</string>
 </resources>

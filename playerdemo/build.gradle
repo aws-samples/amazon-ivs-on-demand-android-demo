@@ -4,15 +4,11 @@ plugins {
     id 'kotlin-kapt'
 }
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.amazonaws.ivs.playerdemo"
         minSdkVersion 23
-        targetSdkVersion 32
-        versionCode 1
-        versionName "1.0"
         buildConfigField "String", "DEMO_VIDEO", "\"https://4da4a22026d3.us-west-2.playback.live-video.net/api/video/v1/us-west-2.298083573632.channel.WbhDQYgfYHoT.m3u8\""
     }
 
@@ -36,11 +32,12 @@ android {
         viewBinding true
         dataBinding true
     }
+    namespace 'com.amazonaws.ivs.playerdemo'
 }
 
 dependencies {
     implementation project(":app")
 
     // Amazon IVS
-    implementation 'com.amazonaws:ivs-player:1.10.0'
+    implementation 'com.amazonaws:ivs-player:1.13.0'
 }
