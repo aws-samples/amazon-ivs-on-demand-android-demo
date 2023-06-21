@@ -20,12 +20,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
 
     buildFeatures {
@@ -39,5 +39,5 @@ dependencies {
     implementation project(":app")
 
     // Amazon IVS
-    implementation 'com.amazonaws:ivs-player:1.17.0'
+    implementation 'com.amazonaws:ivs-player:1.19.0'
 }
