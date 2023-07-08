@@ -1,4 +1,4 @@
-# Amazon IVS On-demand Android demo
+# Amazon IVS On-demand SDK delivery Android demo
 
 This code sample shows how you can leverage [Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery) to enable on-demand delivery of the Amazon IVS Player SDK, which will be downloaded from the Google Play Store when requested.
 
