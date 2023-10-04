@@ -42,16 +42,16 @@ android {
 }
 
 dependencies {
-    api 'androidx.core:core-ktx:1.10.1'
+    api 'androidx.core:core-ktx:1.12.0'
     api 'androidx.appcompat:appcompat:1.6.1'
     api 'com.google.android.material:material:1.9.0'
     api 'androidx.constraintlayout:constraintlayout:2.1.4'
-    api 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    api 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
 
     // Navigation
-    api 'androidx.navigation:navigation-fragment-ktx:2.7.1'
-    api 'androidx.navigation:navigation-ui-ktx:2.7.1'
-    api 'androidx.navigation:navigation-dynamic-features-fragment:2.7.1'
+    api 'androidx.navigation:navigation-fragment-ktx:2.7.3'
+    api 'androidx.navigation:navigation-ui-ktx:2.7.3'
+    api 'androidx.navigation:navigation-dynamic-features-fragment:2.7.3'
 
     // Hilt
     api 'com.google.dagger:hilt-android:2.48'
