@@ -1,10 +1,12 @@
 package com.amazonaws.ivs.playerdemo.common
 
-import android.graphics.Point
-import android.os.Build
-import android.view.SurfaceView
-import android.view.WindowManager
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.graphics.SurfaceTexture
+import android.util.Size
+import android.view.Surface
+import android.view.TextureView
+import android.view.View
+import android.widget.FrameLayout
+import androidx.core.view.doOnLayout
 import com.amazonaws.ivs.player.Cue
 import com.amazonaws.ivs.player.Player
 import com.amazonaws.ivs.player.PlayerException
@@ -66,27 +68,47 @@ inline fun playerListener(
     override fun onMetadata(data: String, buffer: ByteBuffer) = onMetadata(data, buffer)
 }
 
-fun SurfaceView.zoomToFit(windowManager: WindowManager, videoWidth: Int, videoHeight: Int) {
-    val point = Point()
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        context.display?.getRealSize(point)
-    } else {
-        @Suppress("DEPRECATION")
-        windowManager.defaultDisplay.getSize(point)
+fun TextureView.onReady(onReady: (surface: Surface) -> Unit) {
+    if (surfaceTexture != null) {
+        onReady(Surface(surfaceTexture))
+        return
     }
-    val size = calculateSurfaceSize(point.x, point.y, videoWidth, videoHeight)
-    layoutParams = ConstraintLayout.LayoutParams(size.first, size.second)
+    surfaceTextureListener = object : TextureView.SurfaceTextureListener {
+        override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
+            surfaceTextureListener = null
+            onReady(Surface(surfaceTexture))
+        }
+
+        override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
+            /* Ignored */
+        }
+
+        override fun onSurfaceTextureDestroyed(surface: SurfaceTexture) = false
+
+        override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
+            /* Ignored */
+        }
+    }
 }
 
-fun calculateSurfaceSize(surfaceWidth: Int, surfaceHeight: Int, videoWidth: Int, videoHeight: Int): Pair<Int, Int> {
-    val ratioHeight = videoHeight.toFloat() / videoWidth.toFloat()
-    val ratioWidth = videoWidth.toFloat() / videoHeight.toFloat()
-    val isPortrait = videoWidth < videoHeight
+fun View.zoomToFit(videoSize: Size, decorView: View) {
+    decorView.doOnLayout { useToScale ->
+        val viewWidth = useToScale.measuredWidth
+        val viewHeight = useToScale.measuredHeight
+        val size = calculateSurfaceSize(viewWidth, viewHeight, videoSize)
+        layoutParams = FrameLayout.LayoutParams(size.width, size.height)
+    }
+}
+
+private fun calculateSurfaceSize(surfaceWidth: Int, surfaceHeight: Int, videoSize: Size): Size {
+    val ratioHeight = videoSize.height.toFloat() / videoSize.width.toFloat()
+    val ratioWidth = videoSize.width.toFloat() / videoSize.height.toFloat()
+    val isPortrait = videoSize.width < videoSize.height
     val calculatedHeight = if (isPortrait) (surfaceWidth / ratioWidth).toInt() else (surfaceWidth * ratioHeight).toInt()
     val calculatedWidth = if (isPortrait) (surfaceHeight / ratioHeight).toInt() else (surfaceHeight * ratioWidth).toInt()
     return if (calculatedWidth >= surfaceWidth) {
-        Pair(calculatedWidth, surfaceHeight)
+        Size(calculatedWidth, surfaceHeight)
     } else {
-        Pair(surfaceWidth, calculatedHeight)
+        Size(surfaceWidth, calculatedHeight)
     }
 }

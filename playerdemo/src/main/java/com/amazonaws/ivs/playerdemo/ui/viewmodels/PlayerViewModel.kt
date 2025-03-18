@@ -1,16 +1,16 @@
 package com.amazonaws.ivs.playerdemo.ui.viewmodels
 
 import android.content.Context
-import android.net.Uri
+import android.util.Size
 import android.view.Surface
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import com.amazonaws.ivs.player.MediaPlayer
 import com.amazonaws.ivs.player.Player
+import com.amazonaws.ivs.playerdemo.BuildConfig
 import com.amazonaws.ivs.playerdemo.common.setListener
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
@@ -21,19 +21,19 @@ class PlayerViewModel : ViewModel() {
     private var playerListener: Player.Listener? = null
 
     private val _onError = Channel<String>()
-    private val _onLoading = MutableStateFlow(false)
-    private val _onSizeChanged = MutableSharedFlow<Pair<Int, Int>>()
+    private val _onLoading = MutableStateFlow(true)
+    private val _onSizeChanged = MutableStateFlow<Size?>(null)
 
     val onError = _onError.receiveAsFlow()
     val onLoading = _onLoading.asStateFlow()
-    val onSizeChanged = _onSizeChanged.asSharedFlow()
+    val onSizeChanged = _onSizeChanged.asStateFlow()
 
-    fun playMedia(context: Context, surface: Surface, url: String) {
-        player = MediaPlayer(context)
+    fun playMedia(context: Context, surface: Surface) {
+        player = MediaPlayer.Builder(context).build()
 
         player?.setListener(
             onVideoSizeChanged = { width, height ->
-                _onSizeChanged.tryEmit(Pair(width, height))
+                _onSizeChanged.tryEmit(Size(width, height))
             },
             onStateChanged = { state ->
                 when (state) {
@@ -48,7 +48,7 @@ class PlayerViewModel : ViewModel() {
         )
 
         player?.setSurface(surface)
-        player?.load(Uri.parse(url))
+        player?.load(BuildConfig.DEMO_VIDEO.toUri())
         player?.play()
     }
 
