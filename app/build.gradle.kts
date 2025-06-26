@@ -8,14 +8,14 @@ plugins {
 
 android {
     namespace = "com.amazonaws.ivs.moduleondemand"
-    compileSdk = 35
+    compileSdk = 36
 
     dynamicFeatures.addAll(setOf(":playerdemo"))
 
     defaultConfig {
         applicationId = "com.amazonaws.ivs.moduleondemand"
         minSdk = 23
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 4
         versionName = "1.0.4"
     }
